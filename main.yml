@@ -14,11 +14,31 @@
       validate_certs: no
 
   tasks:
+<<<<<<< HEAD
     # read csv then print vars from csv 
     - name: import vars from csv
       read_csv:
         path: OnboardingTargets.csv
       register: targets
+=======
+    
+    - name: import default vars
+      import_role:
+        name: UniversalConfig
+        defaults_from: platform_defaults.yml
+    #- name: license device
+    #  bigip_device_license:
+    #    license_key: "{{ bigip_onboard_license }}"
+    #    provider: "{{ provider }}"
+    #  delegate_to: localhost
+    #  when: bigip_onboard_license is defined and bigip_onboard_license != ''
+
+    - name: Configure NTP server on BIG-IP
+      bigip_device_ntp:
+        provider: "{{ provider }}"
+        ntp_servers: "{{ntp_servers}}"
+      delegate_to: localhost
+>>>>>>> a88238624de7e78be636b196ccee49a7903fcc13
 
     - name: perform tasks from role
       import_role:
