@@ -6,12 +6,12 @@
   connection: local
 
 #for each host in CSV
-  vars:
-    provider:
-      user: admin
-      password: "{{ password | default('admin') }}"
-      server: 192.168.1.100
-      validate_certs: no
+#  vars:
+#    provider:
+#      user: admin
+#      password: "{{ password | default('admin') }}"
+#      server: 192.168.1.100
+#      validate_certs: no
 
   tasks:
     # read csv then print vars from csv 
