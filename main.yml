@@ -24,7 +24,6 @@
     - name: Configure NTP server on BIG-IP
       bigip_device_ntp:
         provider: "{{ provider }}"
-        ntp_servers: 
-          - 192.168.1.254
+        ntp_servers: "{{ntp_servers}}"
       delegate_to: localhost
 
