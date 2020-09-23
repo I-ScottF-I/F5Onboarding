@@ -1,5 +1,7 @@
 ---
 - name: Onboard an F5 BigIP that has been given the initial mgmt connectivity
+  hosts: localhost
+  gather_facts: false
   #loop through all hosts in imported CSV
   connection: local
 
