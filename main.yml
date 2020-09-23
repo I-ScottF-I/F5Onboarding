@@ -14,6 +14,11 @@
       validate_certs: no
 
   tasks:
+    
+    - name: import default vars
+      import_role:
+        name: UniversalConfig
+        defaults_from: platform_defaults.yml
     #- name: license device
     #  bigip_device_license:
     #    license_key: "{{ bigip_onboard_license }}"
