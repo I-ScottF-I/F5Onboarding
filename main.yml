@@ -20,7 +20,19 @@
         path: OnboardingTargets.csv
       register: targets
 
+    - name: print csv vals
+      debug:
+        msg: '{{item.IP}}'
+      loop: '{{targets.list}}'
+
     - name: perform tasks from role
-      import_role:
+      include_role:
         name: UniversalConfig
         tasks_from: onboarding_tasks.yml
+      vars:
+        provider:
+          user: admin
+          password: "{{ password | default('admin') }}"
+          server: "{{item.IP}}"
+          validate_certs: no
+      loop: "{{targets.list}}"
