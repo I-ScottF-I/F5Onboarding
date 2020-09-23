@@ -1,0 +1,28 @@
+---
+- name: Onboard an F5 BigIP that has been given the initial mgmt connectivity
+  #loop through all hosts in imported CSV
+  connection: local
+
+#for each host in CSV
+  vars:
+    provider:
+      user: admin
+      password: "{{ password | default('admin') }}"
+      server: 192.168.1.100
+      validate_certs: no
+
+  tasks:
+    #- name: license device
+    #  bigip_device_license:
+    #    license_key: "{{ bigip_onboard_license }}"
+    #    provider: "{{ provider }}"
+    #  delegate_to: localhost
+    #  when: bigip_onboard_license is defined and bigip_onboard_license != ''
+
+    - name: Configure NTP server on BIG-IP
+      bigip_device_ntp:
+        provider: "{{ provider }}"
+        ntp_servers: 
+          - 192.168.1.254
+      delegate_to: localhost
+
