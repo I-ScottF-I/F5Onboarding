@@ -9,11 +9,17 @@
     ntp_servers: "{{ntp_servers}}"
   delegate_to: localhost
 
-#- name: Configure SNMP trap on BIG-IP
-#  bigip_snmp_trap:
-#    provider: "{{ provider }}"
-#    name: "{{snmp_servers.name}}"
-#    version: "{{snmp_servers.version}}"
-#    oid: "{{snmp_servers.oid}}"
-#    access: "{{snmp_servers.access}}"
-#  delegate_to: localhost
+- name: Configure SNMP trap on BIG-IP
+  bigip_snmp_trap:
+    provider: "{{ provider }}"
+    name: "{{item.name}}"
+    version: "{{item.version}}"
+    snmp_username: "{{item.snmp_username}}"
+    snmp_auth_protocol: "{{item.snmp_auth_protocol}}"
+    snmp_auth_password: "{{item.snmp_auth_password}}"
+    snmp_privacy_protocol: "{{item.snmp_privacy_protocol}}"
+    snmp_privacy_password: "{{item.snmp_privacy_password}}"
+    oid: "{{item.oid}}"
+    access: "{{item.access}}"
+  delegate_to: localhost
+  loop: "{{snmp_servers.list}}"
