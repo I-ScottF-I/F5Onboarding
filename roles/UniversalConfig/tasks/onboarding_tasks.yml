@@ -3,10 +3,17 @@
     name: UniversalConfig
     defaults_from: platform_defaults.yml
 
-
-
 - name: Configure NTP server on BIG-IP
   bigip_device_ntp:
     provider: "{{ provider }}"
     ntp_servers: "{{ntp_servers}}"
+  delegate_to: localhost
+
+- name: Configure SNMP trap on BIG-IP
+  bigip_snmp_trap:
+    provider: "{{ provider }}"
+    name: "{{snmp_servers.name}}"
+    version: "{{snmp_servers.version}}"
+    oid: "{{snmp_servers.oid}}"
+    access: "{{snmp_servers.access}}"
   delegate_to: localhost
