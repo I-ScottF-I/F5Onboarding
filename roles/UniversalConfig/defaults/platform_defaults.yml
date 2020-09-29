@@ -1,9 +1,5 @@
 ntp_servers:
  - 192.168.1.254
-
-snmp_servers:
- - snmp_server_1:
-   name: snmp_server_1
-   version: v2c
-   oid: .1
-   access: ro
+ - 192.168.1.253
+ - 192.168.1.252
+ - 192.168.1.251
