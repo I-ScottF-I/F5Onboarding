@@ -3,23 +3,31 @@
     name: UniversalConfig
     defaults_from: platform_defaults.yml
 
-- name: Configure NTP server on BIG-IP
+- name: Configure NTP server on BIG-IP {{provider.server}}
   bigip_device_ntp:
     provider: "{{ provider }}"
     ntp_servers: "{{ntp_servers}}"
   delegate_to: localhost
 
-- name: Configure SNMP trap on BIG-IP
-  bigip_snmp_trap:
+- name: Configure SNMP agent on BIG-IP {{provider.server}}
+  bigip_snmp_community:
     provider: "{{ provider }}"
-    name: "{{item.name}}"
-    version: "{{item.version}}"
-    snmp_username: "{{item.snmp_username}}"
-    snmp_auth_protocol: "{{item.snmp_auth_protocol}}"
-    snmp_auth_password: "{{item.snmp_auth_password}}"
-    snmp_privacy_protocol: "{{item.snmp_privacy_protocol}}"
-    snmp_privacy_password: "{{item.snmp_privacy_password}}"
-    oid: "{{item.oid}}"
-    access: "{{item.access}}"
+    name: "{{snmp_loop.name}}"
+    version: "{{snmp_loop.version}}"
+    snmp_username: "{{snmp_loop.snmp_username}}"
+    snmp_auth_protocol: "{{snmp_loop.snmp_auth_protocol}}"
+    snmp_auth_password: "{{snmp_loop.snmp_auth_password}}"
+    snmp_privacy_protocol: "{{snmp_loop.snmp_privacy_protocol}}"
+    snmp_privacy_password: "{{snmp_loop.snmp_privacy_password}}"
+    oid: "{{snmp_loop.oid}}"
+    access: "{{snmp_loop.access}}"
   delegate_to: localhost
-  loop: "{{snmp_servers.list}}"
+  loop: "{{snmp_servers}}"
+  loop_control:
+    loop_var: snmp_loop
+    label: "{{snmp_loop.name}}"
+  register: snmp_result
+
+#- name: debug
+#  debug:
+#    var: snmp_servers
