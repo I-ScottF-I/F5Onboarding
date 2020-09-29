@@ -5,13 +5,6 @@
   #loop through all hosts in imported CSV
   connection: local
 
-#for each host in CSV
-#  vars:
-#    provider:
-#      user: admin
-#      password: "{{ password | default('admin') }}"
-#      server: 192.168.1.100
-#      validate_certs: no
 
   tasks:
     # read csv then print vars from csv 
@@ -19,11 +12,6 @@
       read_csv:
         path: OnboardingTargets.csv
       register: targets
-
-    - name: print csv vals
-      debug:
-        msg: '{{item.IP}}'
-      loop: '{{targets.list}}'
 
     - name: perform tasks from role
       include_role:
