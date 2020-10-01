@@ -1,7 +1,5 @@
 - name: import default vars
-  import_role:
-    name: UniversalConfig
-    defaults_from: platform_defaults.yml
+  include_vars: platform_defaults.yml
 
 - name: Configure NTP server on BIG-IP {{provider.server}}
   bigip_device_ntp:

@@ -14,9 +14,7 @@
       register: targets
 
     - name: perform tasks from role
-      include_role:
-        name: UniversalConfig
-        tasks_from: onboarding_tasks.yml
+      import_tasks: onboarding_tasks.yml
       vars:
         provider:
           user: admin
