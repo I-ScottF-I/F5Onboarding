@@ -14,7 +14,7 @@
       register: targets
 
     - name: perform tasks from role
-      import_tasks: onboarding_tasks.yml
+      include_tasks: onboarding_tasks.yml
       vars:
         provider:
           user: admin
